@@ -7,16 +7,16 @@ public class UsuarioInserirDTO {
     private String email;
     private String senha;
 
+    public UsuarioInserirDTO(){
+        
+    }
+
     public UsuarioInserirDTO(Usuario usuario) {
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
         this.senha = usuario.getSenha();
     }
 
-    @Override
-    public String toString() {
-        return "UsuarioInserirDTO [email=" + email + ", nome=" + nome + ", senha=" + senha + "]";
-    }
 
     public String getNome() {
         return nome;

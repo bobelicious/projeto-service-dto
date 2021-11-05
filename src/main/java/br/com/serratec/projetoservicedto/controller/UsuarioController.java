@@ -15,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.serratec.projetoservicedto.dto.UsuarioDTO;
 import br.com.serratec.projetoservicedto.dto.UsuarioInserirDTO;
 import br.com.serratec.projetoservicedto.exception.EmailException;
-import br.com.serratec.projetoservicedto.model.Usuario;
 import br.com.serratec.projetoservicedto.service.UsuarioService;
 
 @RestController

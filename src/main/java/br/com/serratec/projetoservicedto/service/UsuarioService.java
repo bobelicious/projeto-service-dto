@@ -23,27 +23,28 @@ public class UsuarioService {
 
     public List<UsuarioDTO> listar() {
         List<Usuario> usuarios = usuarioRepository.findAll();
-		List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
 
-		for (Usuario usuario : usuarios) {
-			UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
-			usuariosDTO.add(usuarioDTO);
-		}
-		return usuariosDTO;
-	}
-
-    public UsuarioDTO inserir (UsuarioInserirDTO user) throws EmailException{
-       Usuario usuario = usuarioRepository.findByEmail(user.getEmail());
-       if(usuario !=null){
-           throw new EmailException("Email já existe");
-       }
-        usuario .setNome(user.getNome());
-        usuario.setEmail(user.getEmail());
-        usuario.setSenha((bCryptPasswordEncoder.encode(user.getSenha()))); 
-       usuario =  usuarioRepository.save(usuario);
-       
-       return new UsuarioDTO(usuario);
+        for (Usuario usuario : usuarios) {
+            UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
+            usuariosDTO.add(usuarioDTO);
+        }
+        return usuariosDTO;
     }
 
+    public UsuarioDTO inserir(UsuarioInserirDTO usuarioInserirDTO) throws EmailException {
+
+		if (usuarioRepository.findByEmail(usuarioInserirDTO.getEmail()) != null) {
+			throw new EmailException("Email já existe ! Insira outro");
+		}
+		
+		Usuario usuario = new Usuario();
+		usuario.setNome(usuarioInserirDTO.getNome());
+		usuario.setEmail(usuarioInserirDTO.getEmail());
+
+		usuario.setSenha(bCryptPasswordEncoder.encode(usuarioInserirDTO.getSenha()));
+		usuarioRepository.save(usuario);
+		return new UsuarioDTO(usuario);
+    }
     
 }

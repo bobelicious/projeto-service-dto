@@ -6,6 +6,7 @@ public class UsuarioDTO {
     private Long id;
     private String nome;
     private String email;
+    
     public UsuarioDTO(){
 
     }
@@ -44,6 +45,4 @@ public class UsuarioDTO {
     public void setId(Long id) {
         this.id = id;
     }
-
-    
 }
