@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.serratec.projetoservicedto.config.MailConfig;
 import br.com.serratec.projetoservicedto.dto.UsuarioDTO;
 import br.com.serratec.projetoservicedto.dto.UsuarioInserirDTO;
 import br.com.serratec.projetoservicedto.exception.EmailException;
@@ -17,6 +18,9 @@ import br.com.serratec.projetoservicedto.repository.UsuarioRepository;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private MailConfig mailConfig;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -44,6 +48,7 @@ public class UsuarioService {
 
 		usuario.setSenha(bCryptPasswordEncoder.encode(usuarioInserirDTO.getSenha()));
 		usuarioRepository.save(usuario);
+        mailConfig.enviarEmail(usuario.getEmail(), "Cadastro de usuario  confirmado", usuario.toString());
 		return new UsuarioDTO(usuario);
     }
     
